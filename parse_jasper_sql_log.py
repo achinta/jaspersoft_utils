@@ -8,8 +8,8 @@ def get_params(param_lines):
 	for param_line in param_lines:
 		param = param_line.rsplit(':',1)[1].strip()
 		prefix = param_line.rsplit(':',1)[0]
-		#enclsoe within quotes if it is a string param
-		if 'of type java.lang.String' in prefix:
+		#enclsoe within quotes if it is a string or date	 param
+		if 'of type java.lang.String' in prefix or 'java.sql.Date' in prefix:
 			# print prefix
 			param = "'" + param + "'"
 		params.append(param)
