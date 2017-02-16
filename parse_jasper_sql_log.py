@@ -6,8 +6,12 @@ def format_query_lines(query_lines):
 def get_params(param_lines):
 	params = []
 	for param_line in param_lines:
-		param = param_line.rsplit(':',1)[1]
-		param = param.strip()
+		param = param_line.rsplit(':',1)[1].strip()
+		prefix = param_line.rsplit(':',1)[0]
+		#enclsoe within quotes if it is a string param
+		if 'of type java.lang.String' in prefix:
+			# print prefix
+			param = "'" + param + "'"
 		params.append(param)
 	return params
 
@@ -18,7 +22,7 @@ def substitute_params(sql_query, params):
 		sql_query = sql_query.replace('?',param,1)
 	return sql_query
 
-with open('/tmp/ivydms_gsk_india_jasper_qa.log','r') as f:
+with open('/tmp/jasper.log','r') as f:
 	lines = f.readlines()
 
 sql_queries = []
